@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://cckdwl4hjxxa0"]
+
+[ext_resource type="Script" path="res://GUI/PlayerHud/player_hud.gd" id="1_c2243"]
+[ext_resource type="Script" path="res://GUI/PlayerHud/health_bar.gd" id="2_qravm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lt0e2"]
+bg_color = Color(1, 0.847059, 0.858824, 0.494118)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_04fl8"]
+bg_color = Color(0.77249, 0.222863, 0.265524, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_inpki"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hxa3a"]
+bg_color = Color(1, 0.858824, 0.254902, 1)
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_c2243")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+z_index = 1
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 108.0
+offset_bottom = 8.0
+theme_override_styles/background = SubResource("StyleBoxFlat_lt0e2")
+theme_override_styles/fill = SubResource("StyleBoxFlat_04fl8")
+step = 1.0
+value = 100.0
+show_percentage = false
+script = ExtResource("2_qravm")
+
+[node name="DamageBar" type="ProgressBar" parent="ProgressBar"]
+z_index = -1
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_bottom = 2.5
+theme_override_styles/background = SubResource("StyleBoxEmpty_inpki")
+theme_override_styles/fill = SubResource("StyleBoxFlat_hxa3a")
+step = 1.0
+show_percentage = false
+
+[node name="Timer" type="Timer" parent="ProgressBar"]
+wait_time = 0.4
+
+[connection signal="timeout" from="ProgressBar/Timer" to="ProgressBar" method="_on_timer_timeout"]

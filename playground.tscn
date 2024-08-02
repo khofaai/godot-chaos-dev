@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://48fjgdy2q3s0"]
+[gd_scene load_steps=6 format=3 uid="uid://48fjgdy2q3s0"]
 
 [ext_resource type="PackedScene" uid="uid://mcq4lnmuqmkk" path="res://player.tscn" id="1_m3xcx"]
 [ext_resource type="PackedScene" uid="uid://b88k7np3yjyy" path="res://Tail Maps/grass-01.tscn" id="2_5m22n"]
 [ext_resource type="PackedScene" uid="uid://cymf1abafmpwr" path="res://Props/Plants/plant.tscn" id="3_b0u8d"]
 [ext_resource type="PackedScene" uid="uid://blhbfe1hjvxdv" path="res://Enemies/Slime/Slime.tscn" id="4_664cy"]
+[ext_resource type="PackedScene" uid="uid://cckdwl4hjxxa0" path="res://GUI/player_hud.tscn" id="5_roeoc"]
 
 [node name="Node2D" type="Node2D"]
 y_sort_enabled = true
@@ -25,3 +26,5 @@ position = Vector2(233, 149)
 
 [node name="Slime" parent="." instance=ExtResource("4_664cy")]
 position = Vector2(91, 132)
+
+[node name="CanvasLayer" parent="." instance=ExtResource("5_roeoc")]
