@@ -1,39 +1,51 @@
-class_name Player extends CharacterBody2D
+class_name Enemy extends CharacterBody2D
+
+
+signal direction_changed(new_direction: Vector2)
+signal enemy_damaged()
+signal enemy_destroyed()
+
+const DIR_4 = [Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT, Vector2.UP]
+
+@export var hp: int = 3
+
 
 var cardinal_direction : Vector2 = Vector2.DOWN
 var direction : Vector2 = Vector2.ZERO
-const DIR_4 = [Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT, Vector2.UP]
+var player : Player
+var invulnerable : bool = false
 
 @onready var animation_player : AnimationPlayer = $AnimationPlayer
 @onready var sprite : Sprite2D = $Sprite2D
-@onready var state_machine: PlayerStateMachine = $StateMachine
+@onready var hit_box : HitBox = $HitBox
+@onready var state_machine : EnemyStateMachine = $EnemyStateMachine
 
-signal DirectionChanged(new_direction: Vector2)
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	PlayerManager.player = self
-	state_machine.Initialize(self)
+	state_machine.initialize(self)
+	player = PlayerManager.player
+	
+	hit_box.Damaged.connect(take_damage)
 	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	
-	#direction.y = Input.get_action_strength("down") - Input.get_action_strength("up")
-	direction = Vector2(
-		Input.get_axis('left', 'right'),
-		Input.get_axis('up', 'down')
-	)
-	direction = direction.normalized()
 	pass
 
 
+
 func _physics_process(_delta):
-	move_and_slide();
+	move_and_slide()
+	pass
 
 
-func SetDirection() -> bool:
+
+func set_direction(_new_direction : Vector2) -> bool:
+	direction = _new_direction
 	if direction == Vector2.ZERO:
 		return false
 	
@@ -45,27 +57,42 @@ func SetDirection() -> bool:
 	var val = round((angle / TAU) * DIR_4.size())
 	var direction_id : int = int(val)
 	
-	var new_direction = DIR_4[direction_id]
+	var new_dir = DIR_4[direction_id]
 	
-	if new_direction == cardinal_direction:
+	if new_dir == cardinal_direction:
 		return false
 	
-	cardinal_direction = new_direction
-	DirectionChanged.emit(new_direction)
+	cardinal_direction = new_dir
+	direction_changed.emit(new_dir)
 	sprite.scale.x = -1 if cardinal_direction == Vector2.LEFT else 1
 	
 	return true
 
 
-func UpdateAnimation(state: String) -> void:
-	animation_player.play(state + "_" + AnimationDirection())
+
+func update_animation(state : String) -> void:
+	animation_player.play(state + '_' + animation_direction())
 	pass
 
 
-func AnimationDirection() -> String:
+func animation_direction() -> String:
 	if cardinal_direction == Vector2.DOWN:
 		return "down"
 	elif cardinal_direction == Vector2.UP:
 		return "up"
 	else:
 		return "side"
+	
+
+func take_damage(damage : int) -> void:
+	if invulnerable:
+		return
+	hp -= damage
+	if hp > 0:
+		enemy_damaged.emit()
+	else:
+		enemy_destroyed.emit()
+		
+	pass
+
+
