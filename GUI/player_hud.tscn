@@ -15,6 +15,7 @@ bg_color = Color(0.77249, 0.222863, 0.265524, 1)
 bg_color = Color(1, 0.858824, 0.254902, 1)
 
 [node name="CanvasLayer" type="CanvasLayer"]
+layer = 2
 script = ExtResource("1_c2243")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]

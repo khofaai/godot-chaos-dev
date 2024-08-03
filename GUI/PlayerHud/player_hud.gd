@@ -11,6 +11,7 @@ var hp : int = 10
 func _ready():
 	player = PlayerManager.player
 	player.player_damaged.connect(update_hp)
+	SaveManager.game_loaded.connect(set_loaded_data)
 	set_hp(player.hp)
 	pass # Replace with function body.
 
@@ -18,6 +19,9 @@ func set_hp(_hp : int) -> void:
 	progress_bar.init(_hp)
 	pass
 
-
-func update_hp(hurt_box: HurtBox) -> void:
+func update_hp(_hurt_box: HurtBox) -> void:
 	progress_bar._set_hp(player.hp)
+
+func set_loaded_data() -> void:
+	progress_bar._set_hp(player.hp)
+	

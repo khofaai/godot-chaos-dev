@@ -2,8 +2,8 @@ class_name HealthBar extends ProgressBar
 
 @onready var timer = $Timer
 @onready var damage_bar = $DamageBar
-@onready var player = $"../../Player"
 
+var player : Player
 var hp : int = 10
 
 func _set_hp(_hp : int) -> void:
@@ -27,13 +27,13 @@ func init(_hp : int) -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#player = PlayerManager.player
-	#init(PlayerManager.player.hp)
+	player = PlayerManager.player
+	init(PlayerManager.player.hp)
 	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	pass
 
 
