@@ -1,13 +1,15 @@
 extends CanvasLayer
 
-@onready var player : Player = $"../Player"
+
 @onready var progress_bar = $ProgressBar
 
+var player : Player
 var hp : int = 10
 
 
 # Called when the node enters the scene  tree for the first time.
 func _ready():
+	player = PlayerManager.player
 	player.player_damaged.connect(update_hp)
 	set_hp(player.hp)
 	pass # Replace with function body.
