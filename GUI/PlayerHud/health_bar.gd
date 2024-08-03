@@ -2,15 +2,17 @@ class_name HealthBar extends ProgressBar
 
 @onready var timer = $Timer
 @onready var damage_bar = $DamageBar
+@onready var label = $"../Label"
 
 var player : Player
 var hp : int = 10
 
 func _set_hp(_hp : int) -> void:
+	print('_set_hp: ', _hp)
 	var prev_hp = hp
 	hp = _hp
 	value = hp
-	
+	label.text = str(hp)
 	if hp < prev_hp:
 		timer.start()
 	else:

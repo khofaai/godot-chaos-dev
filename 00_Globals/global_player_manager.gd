@@ -1,6 +1,7 @@
 extends Node
 
 const PLAYER = preload("res://Player/player.tscn")
+const INVENTORY_DATA : InventoryData = preload("res://GUI/PauseMenu/Inventory/player_inventory.tres")
 
 var player : Player
 var player_spawn : bool = false
@@ -36,3 +37,4 @@ func set_as_parent(_parent : Node2D) -> void:
 
 func unparent_player(_parent : Node2D) -> void:
 	_parent.remove_child(player)
+

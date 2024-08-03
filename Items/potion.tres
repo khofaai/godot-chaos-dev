@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=7 format=3 uid="uid://cv0cjko1vm44n"]
+
+[ext_resource type="AudioStream" uid="uid://cejyxuw3845f7" path="res://Items/ItemEffects/health-pickup-6860.mp3" id="1_8nmh1"]
+[ext_resource type="Script" path="res://Items/ItemEffects/item_effect_heal.gd" id="1_h50xf"]
+[ext_resource type="Script" path="res://Items/Scripts/item_data.gd" id="1_w116s"]
+[ext_resource type="Texture2D" uid="uid://ccyooyuj2wwro" path="res://Items/Sprites/items.png" id="2_m3tcv"]
+
+[sub_resource type="Resource" id="Resource_srf8j"]
+script = ExtResource("1_h50xf")
+heal_amount = 1
+audio = ExtResource("1_8nmh1")
+use_description = ""
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lt7wc"]
+atlas = ExtResource("2_m3tcv")
+region = Rect2(32, 0, 32, 32)
+
+[resource]
+script = ExtResource("1_w116s")
+name = "Potion"
+description = "This red jus restore hp"
+texture = SubResource("AtlasTexture_lt7wc")
+effects = Array[Resource("res://Items/ItemEffects/item_effect.gd")]([SubResource("Resource_srf8j")])

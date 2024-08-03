@@ -2,6 +2,7 @@ class_name Player extends CharacterBody2D
 
 signal DirectionChanged(new_direction: Vector2)
 signal player_damaged(hurt_box : HurtBox)
+signal player_hp_updated(delta : int)
 
 
 var cardinal_direction : Vector2 = Vector2.DOWN
@@ -30,7 +31,7 @@ func _ready():
 	hit_box.Damaged.connect(_take_damage)
 	#PlayerHud.set_hp(max_hp)
 	
-	update_hp(99)
+	#update_hp(99)
 	pass # Replace with function body.
 
 
@@ -98,12 +99,21 @@ func _take_damage(hurt_box : HurtBox) -> void:
 		player_damaged.emit(hurt_box)
 	else:
 		player_damaged.emit(hurt_box)
-		update_hp(99)
+		#update_hp(99)
 	pass
 
 
 func update_hp(delta : int) -> void:
-	hp = clampi(hp + delta, 0, max_hp)
+	var new_hp = hp + delta
+	if new_hp > max_hp:
+		hp = max_hp
+	elif new_hp < 0:
+		hp = max_hp # should be dead
+	else:
+		hp = new_hp
+	#hp = clampi(hp + delta, 0, max_hp)
+	
+	player_hp_updated.emit(hp)
 	pass
 
 

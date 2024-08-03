@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=7 format=3 uid="uid://b56voo2aqcjlc"]
+
+[ext_resource type="AudioStream" uid="uid://cejyxuw3845f7" path="res://Items/ItemEffects/health-pickup-6860.mp3" id="1_rxr4w"]
+[ext_resource type="Script" path="res://Items/Scripts/item_data.gd" id="1_v3h27"]
+[ext_resource type="Script" path="res://Items/ItemEffects/item_effect_heal.gd" id="2_uhj8x"]
+[ext_resource type="Texture2D" uid="uid://ccyooyuj2wwro" path="res://Items/Sprites/items.png" id="4_pas3k"]
+
+[sub_resource type="Resource" id="Resource_cn0sm"]
+script = ExtResource("2_uhj8x")
+heal_amount = 1
+audio = ExtResource("1_rxr4w")
+use_description = ""
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p1uin"]
+atlas = ExtResource("4_pas3k")
+region = Rect2(192, 0, 32, 32)
+
+[resource]
+script = ExtResource("1_v3h27")
+name = "Apple"
+description = ""
+texture = SubResource("AtlasTexture_p1uin")
+effects = Array[Resource("res://Items/ItemEffects/item_effect.gd")]([SubResource("Resource_cn0sm")])

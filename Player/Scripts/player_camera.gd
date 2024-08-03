@@ -23,6 +23,6 @@ func center_camera() -> void:
 	var right = limit_right - (offset.x*zoom.x) - get_viewport().size.x * zoom.x / 2
 	var top = limit_top + (offset.y*zoom.y) + get_viewport().size.y * zoom.y / 2
 	var bottom = limit_bottom - (offset.y*zoom.y) - get_viewport().size.y * zoom.y / 2
-	print(global_position)
+	
 	position.x = clamp(position.x, left, right)
 	position.y = clamp(position.y, top, bottom)

@@ -53,7 +53,7 @@ position = Vector2(13, 262)
 position = Vector2(320, 231)
 
 [node name="LevelTransition" parent="." instance=ExtResource("5_ismqv")]
-position = Vector2(176, -64)
+position = Vector2(176, -48)
 level = "res://Levels/Area01/01.tscn"
 size = 4
 side = 2
