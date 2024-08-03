@@ -5,7 +5,7 @@ class_name PlayerCamera extends Camera2D
 func _ready():
 	LevelManager.TileMapBoundsChanged.connect(update_limits)
 	update_limits(LevelManager.current_tilemap_bounds)
-	center_camera()
+	#center_camera()
 	pass # Replace with function body.
 
 
