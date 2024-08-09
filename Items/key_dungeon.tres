@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://djtkjneusgn36"]
+
+[ext_resource type="Script" path="res://Items/Scripts/item_data.gd" id="1_fffak"]
+[ext_resource type="Texture2D" uid="uid://ccyooyuj2wwro" path="res://Items/Sprites/items.png" id="2_62cxb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uqtbj"]
+atlas = ExtResource("2_62cxb")
+region = Rect2(224, 0, 31, 32)
+
+[resource]
+script = ExtResource("1_fffak")
+name = ""
+description = ""
+texture = SubResource("AtlasTexture_uqtbj")
+effects = Array[Resource("res://Items/ItemEffects/item_effect.gd")]([])

@@ -6,6 +6,9 @@ enum SIDE { LEFT, RIGHT, TOP, BOTTOM }
 
 @export_file('*.tscn') var level
 @export var target_transition_area : String = 'LevelTransition'
+@export var center_player : bool = false
+@export var placement_radius : int = 32
+@export var disabled : bool = false
 
 @export_category('Collision Area Settings')
 
@@ -27,23 +30,25 @@ enum SIDE { LEFT, RIGHT, TOP, BOTTOM }
 
 
 func _ready():
-	_update_area()
-	if Engine.is_editor_hint():
-		return
-	
-	monitoring = false
-	_place_player()
-	
-	await LevelManager.level_loaded
-	
-	monitoring = true
-	body_entered.connect(_player_entered)
+	if !disabled:
+		_update_area()
+		if Engine.is_editor_hint():
+			return
+		
+		monitoring = false
+		_place_player()
+		
+		await LevelManager.level_loaded
+		
+		monitoring = true
+		body_entered.connect(_player_entered)
 	
 	pass
 
 
 func _player_entered(_player : Node2D) -> void:
-	LevelManager.load_new_level(level, target_transition_area, _get_position_offset())
+	if !disabled:
+		LevelManager.load_new_level(level, target_transition_area, _get_position_offset())
 	pass
 
 
@@ -60,12 +65,18 @@ func _get_position_offset() -> Vector2:
 	var player_pos : Vector2 = PlayerManager.player.global_position
 	
 	if side == SIDE.LEFT or size == SIDE.RIGHT:
-		offset.y = player_pos.y - global_position.y
+		if center_player:
+			offset.y = 0
+		else:
+			offset.y = player_pos.y - global_position.y
 		offset.x = 16
 		if side == SIDE.LEFT:
 			offset.x *= -1
 	else:
-		offset.x = player_pos.x - global_position.x
+		if center_player:
+			offset.x = 0
+		else:
+			offset.x = player_pos.x - global_position.x
 		offset.y = 16
 		if side == SIDE.TOP:
 			offset.y *= -1
@@ -81,16 +92,16 @@ func _update_area() -> void:
 	
 	if side == SIDE.TOP:
 		new_rect.x *= size
-		new_position.y -= 32
+		new_position.y -= placement_radius
 	elif side == SIDE.BOTTOM:
 		new_rect.x *= size
-		new_position.y += 32
+		new_position.y += placement_radius
 	elif side == SIDE.LEFT:
 		new_rect.y *= size
-		new_position.x -= 32
+		new_position.x -= placement_radius
 	elif side == SIDE.RIGHT:
 		new_rect.y *= size
-		new_position.x += 32
+		new_position.x += placement_radius
 		
 	if collision_shape == null:
 		collision_shape  = get_node('CollisionShape2D')

@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://37fia2ibt8tx"]
+[gd_scene load_steps=46 format=3 uid="uid://37fia2ibt8tx"]
 
 [ext_resource type="Script" path="res://Player/Scripts/player.gd" id="1_8kok1"]
 [ext_resource type="Texture2D" uid="uid://csndbonsb48aw" path="res://Player/Sprites/PlayerSprite02.png" id="2_2xkpy"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://Player/Scripts/States/state_stun.gd" id="11_xefn0"]
 [ext_resource type="PackedScene" uid="uid://cgschh3fyjhvn" path="res://GeneralNodes/HitBox/hit_box.tscn" id="13_yp8hj"]
 [ext_resource type="AudioStream" uid="uid://fgkdvai800th" path="res://Player/Audio/hit_player.wav" id="14_773b8"]
+[ext_resource type="Script" path="res://Player/Scripts/push_area.gd" id="14_wnucf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h2do8"]
 
@@ -519,6 +520,12 @@ _data = {
 "walk_up": SubResource("Animation_77nv7")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7a113"]
+size = Vector2(20, 22)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7di0c"]
+size = Vector2(20, 16)
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_m408i"]
 
 [sub_resource type="Animation" id="Animation_8aude"]
@@ -662,7 +669,30 @@ script = ExtResource("11_8or5d")
 max_polyphony = 4
 
 [node name="Interactions" type="Node2D" parent="."]
+position = Vector2(0, -5)
 script = ExtResource("10_825iq")
+
+[node name="Area2D" type="Area2D" parent="Interactions"]
+position = Vector2(9, 0)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactions/Area2D"]
+position = Vector2(-9, 0)
+shape = SubResource("RectangleShape2D_7a113")
+debug_color = Color(0.235294, 0.854902, 0.419608, 0.690196)
+
+[node name="PushArea" type="Area2D" parent="Interactions"]
+collision_layer = 0
+collision_mask = 16
+monitorable = false
+script = ExtResource("14_wnucf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactions/PushArea"]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_7di0c")
+debug_color = Color(0.993374, 0.742102, 0.879259, 0.690196)
 
 [node name="HitBox" parent="." instance=ExtResource("13_yp8hj")]
 collision_layer = 2

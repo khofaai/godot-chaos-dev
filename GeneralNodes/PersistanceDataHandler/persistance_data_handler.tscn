@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://5drq7yh2fgdl"]
+
+[ext_resource type="Script" path="res://GeneralNodes/PersistanceDataHandler/persistance_data_handler.gd" id="1_pysiw"]
+
+[node name="PersistanceDataHandler" type="Node"]
+script = ExtResource("1_pysiw")

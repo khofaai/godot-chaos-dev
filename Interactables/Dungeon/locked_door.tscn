@@ -1,0 +1,208 @@
+[gd_scene load_steps=15 format=3 uid="uid://bod0gm8cku8yq"]
+
+[ext_resource type="Texture2D" uid="uid://bwm0eb2lf0ty8" path="res://Interactables/Dungeon/dungeon_props.png" id="1_8knui"]
+[ext_resource type="Script" path="res://Interactables/Dungeon/Scripts/locked_door.gd" id="1_my82o"]
+[ext_resource type="PackedScene" uid="uid://5drq7yh2fgdl" path="res://GeneralNodes/PersistanceDataHandler/persistance_data_handler.tscn" id="2_3g6go"]
+[ext_resource type="AudioStream" uid="uid://b6invkwvawkaj" path="res://Interactables/Dungeon/Audio/locked_door.wav" id="2_oqen5"]
+[ext_resource type="Resource" uid="uid://djtkjneusgn36" path="res://Items/key_dungeon.tres" id="2_ubo2h"]
+[ext_resource type="AudioStream" uid="uid://dnqf5mux4vnbp" path="res://Interactables/Dungeon/Audio/unlock_door.wav" id="3_hcs3v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_plbyb"]
+size = Vector2(64, 66)
+
+[sub_resource type="Animation" id="Animation_q6qer"]
+resource_name = "closed"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody2D/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_x7bgk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody2D/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_gyshh"]
+resource_name = "opened"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody2D/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_46a3n"]
+resource_name = "close_door"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody2D/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_wq163"]
+resource_name = "open_door"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody2D/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gwomb"]
+_data = {
+"RESET": SubResource("Animation_x7bgk"),
+"close_door": SubResource("Animation_46a3n"),
+"closed": SubResource("Animation_q6qer"),
+"open_door": SubResource("Animation_wq163"),
+"opened": SubResource("Animation_gyshh")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4assh"]
+size = Vector2(29, 20)
+
+[node name="LockedDoor" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_my82o")
+key_item = ExtResource("2_ubo2h")
+lock_audio = ExtResource("2_oqen5")
+open_audio = ExtResource("3_hcs3v")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(32, -39)
+texture = ExtResource("1_8knui")
+hframes = 7
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(32, -28)
+shape = SubResource("RectangleShape2D_plbyb")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_gwomb")
+}
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[node name="PersistanceDataHandler" parent="." instance=ExtResource("2_3g6go")]
+
+[node name="InteractArea2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea2D"]
+position = Vector2(32, -6)
+shape = SubResource("RectangleShape2D_4assh")
+debug_color = Color(0.599212, 0.540923, 0.157529, 0.42)
+
+[node name="Label" type="Label" parent="."]
+offset_left = -6.0
+offset_top = -54.0
+offset_right = 75.0
+offset_bottom = -31.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 10
+text = "Press [E] to open"
+vertical_alignment = 1

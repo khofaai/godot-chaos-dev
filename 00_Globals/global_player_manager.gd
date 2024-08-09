@@ -3,6 +3,9 @@ extends Node
 const PLAYER = preload("res://Player/player.tscn")
 const INVENTORY_DATA : InventoryData = preload("res://GUI/PauseMenu/Inventory/player_inventory.tres")
 
+signal interact_pressed
+signal player_spawned(_position: Vector2)
+
 var player : Player
 var player_spawn : bool = false
 
@@ -25,6 +28,7 @@ func set_health(hp : int, max_hp : int) -> void:
 
 func set_player_position(_new_position : Vector2) -> void:
 	player.global_position = _new_position
+	player_spawned.emit(_new_position)
 	pass
 
 

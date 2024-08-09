@@ -46,13 +46,4 @@ show_percentage = false
 [node name="Timer" type="Timer" parent="ProgressBar"]
 wait_time = 0.4
 
-[node name="Label" type="Label" parent="."]
-visible = false
-offset_left = 108.0
-offset_top = 1.0
-offset_right = 133.0
-offset_bottom = 15.0
-theme_override_font_sizes/font_size = 10
-text = "10"
-
 [connection signal="timeout" from="ProgressBar/Timer" to="ProgressBar" method="_on_timer_timeout"]

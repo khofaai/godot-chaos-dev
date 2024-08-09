@@ -8,6 +8,7 @@ var current_tilemap_bounds : Array[Vector2]
 var target_transition : String
 var position_offset : Vector2
 
+var loading_freeze : bool = false
 
 func _ready():
 	await get_tree().process_frame
@@ -25,6 +26,9 @@ func load_new_level(
 	_target_transition : String,
 	_position_offset : Vector2
 ) -> void:
+	
+	if loading_freeze:
+		return
 	
 	get_tree().paused = true
 	target_transition = _target_transition
@@ -45,5 +49,9 @@ func load_new_level(
 	await get_tree().process_frame
 
 	level_loaded.emit()	
+	
+	loading_freeze = true
+	await get_tree().create_timer(.1).timeout
+	loading_freeze = false
 	
 	pass
