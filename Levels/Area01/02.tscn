@@ -1,14 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://bpiap4fascdes"]
+[gd_scene load_steps=8 format=3 uid="uid://bpiap4fascdes"]
 
 [ext_resource type="PackedScene" uid="uid://b88k7np3yjyy" path="res://Tail Maps/grass-01.tscn" id="1_ajewo"]
 [ext_resource type="Script" path="res://Levels/Scripts/level.gd" id="1_tswke"]
 [ext_resource type="PackedScene" uid="uid://blhbfe1hjvxdv" path="res://Enemies/Slime/Slime.tscn" id="2_g30up"]
+[ext_resource type="AudioStream" uid="uid://bb0wdamv5ssg8" path="res://Levels/Audio/example_music_01.ogg" id="2_n71n3"]
 [ext_resource type="PackedScene" uid="uid://cymf1abafmpwr" path="res://Props/Plants/plant.tscn" id="3_fkabj"]
 [ext_resource type="PackedScene" uid="uid://bakkxj4t3gjn8" path="res://Levels/player_spawn.tscn" id="4_cfqn5"]
 [ext_resource type="PackedScene" uid="uid://dlc7vnf05el6r" path="res://Levels/level_transition.tscn" id="6_je2xu"]
 
 [node name="02" type="Node2D"]
 script = ExtResource("1_tswke")
+music = ExtResource("2_n71n3")
 
 [node name="Grass-01" parent="." instance=ExtResource("1_ajewo")]
 rotation = 0.0013282

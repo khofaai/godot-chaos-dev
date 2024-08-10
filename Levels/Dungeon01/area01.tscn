@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://cevpnjrs7bjso"]
+[gd_scene load_steps=9 format=3 uid="uid://cevpnjrs7bjso"]
 
 [ext_resource type="Script" path="res://Levels/Scripts/level.gd" id="1_7svpa"]
 [ext_resource type="PackedScene" uid="uid://b7q6wkwqpnrgl" path="res://Tail Maps/dungeon_01.tscn" id="1_8nuc7"]
 [ext_resource type="PackedScene" uid="uid://bakkxj4t3gjn8" path="res://Levels/player_spawn.tscn" id="2_hiyau"]
+[ext_resource type="AudioStream" uid="uid://sgaw2ismh2vl" path="res://Levels/Audio/example_music_03.ogg" id="2_s6lna"]
 [ext_resource type="PackedScene" uid="uid://dlc7vnf05el6r" path="res://Levels/level_transition.tscn" id="4_getot"]
 [ext_resource type="PackedScene" uid="uid://cxhqetotwdj1f" path="res://Interactables/Dungeon/pressure_plate.tscn" id="5_igcnp"]
 [ext_resource type="PackedScene" uid="uid://dqpjfmfo6bghi" path="res://Interactables/Dungeon/barre_door.tscn" id="6_78d3v"]
@@ -10,6 +11,7 @@
 
 [node name="Area01" type="Node2D"]
 script = ExtResource("1_7svpa")
+music = ExtResource("2_s6lna")
 
 [node name="Dungeon01" parent="." instance=ExtResource("1_8nuc7")]
 z_index = -1

@@ -1,0 +1,112 @@
+[gd_scene load_steps=10 format=3 uid="uid://cckdwl4hjxxa0"]
+
+[ext_resource type="Script" path="res://GUI/PlayerHud/player_hud.gd" id="1_c2243"]
+[ext_resource type="Script" path="res://GUI/PlayerHud/health_bar.gd" id="2_qravm"]
+[ext_resource type="Texture2D" uid="uid://bq7472uywk37f" path="res://Player/Sprites/boomerang.png" id="3_5a23c"]
+[ext_resource type="Texture2D" uid="uid://c7ic63ug348tg" path="res://GUI/PlayerHud/pixil-frame-0.png" id="4_h4ox5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lt0e2"]
+bg_color = Color(1, 0.847059, 0.858824, 0.494118)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_04fl8"]
+bg_color = Color(0.77249, 0.222863, 0.265524, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_inpki"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hxa3a"]
+bg_color = Color(1, 0.858824, 0.254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4v284"]
+bg_color = Color(0.0980985, 0.0980985, 0.0980985, 0.376471)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[node name="CanvasLayer" type="CanvasLayer"]
+layer = 2
+script = ExtResource("1_c2243")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+z_index = 1
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 105.0
+offset_bottom = 10.0
+theme_override_styles/background = SubResource("StyleBoxFlat_lt0e2")
+theme_override_styles/fill = SubResource("StyleBoxFlat_04fl8")
+step = 1.0
+value = 100.0
+show_percentage = false
+script = ExtResource("2_qravm")
+
+[node name="DamageBar" type="ProgressBar" parent="ProgressBar"]
+z_index = -1
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_bottom = 2.5
+theme_override_styles/background = SubResource("StyleBoxEmpty_inpki")
+theme_override_styles/fill = SubResource("StyleBoxFlat_hxa3a")
+step = 1.0
+show_percentage = false
+
+[node name="Timer" type="Timer" parent="ProgressBar"]
+wait_time = 0.4
+
+[node name="Abilities" type="Node" parent="."]
+
+[node name="Ability01" type="Button" parent="Abilities"]
+offset_left = 190.0
+offset_top = 238.0
+offset_right = 214.0
+offset_bottom = 262.0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_colors/font_focus_color = Color(0.265693, 0.368272, 0.312461, 1)
+theme_override_styles/focus = SubResource("StyleBoxFlat_4v284")
+
+[node name="Sprite2D" type="Sprite2D" parent="Abilities/Ability01"]
+position = Vector2(13, 14)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("3_5a23c")
+hframes = 8
+
+[node name="Ability02" type="Button" parent="Abilities"]
+offset_left = 217.0
+offset_top = 238.0
+offset_right = 241.0
+offset_bottom = 262.0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_colors/font_focus_color = Color(0.265693, 0.368272, 0.312461, 1)
+theme_override_styles/focus = SubResource("StyleBoxFlat_4v284")
+
+[node name="Sprite2D" type="Sprite2D" parent="Abilities/Ability02"]
+position = Vector2(12, 12)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("4_h4ox5")
+
+[node name="Ability02Timer" type="Timer" parent="Abilities/Ability02"]
+one_shot = true
+
+[node name="Button2" type="Button" parent="Abilities"]
+offset_left = 244.0
+offset_top = 238.0
+offset_right = 268.0
+offset_bottom = 262.0
+
+[node name="Button3" type="Button" parent="Abilities"]
+offset_left = 271.0
+offset_top = 238.0
+offset_right = 295.0
+offset_bottom = 262.0
+
+[connection signal="timeout" from="ProgressBar/Timer" to="ProgressBar" method="_on_timer_timeout"]

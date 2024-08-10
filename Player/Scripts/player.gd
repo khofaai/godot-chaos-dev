@@ -22,6 +22,9 @@ var max_hp : int = 10
 @onready var sprite : Sprite2D = $Sprite2D
 @onready var state_machine: PlayerStateMachine = $StateMachine
 
+@onready var audio : AudioStreamPlayer2D = $Audio/AudioStreamPlayer2D
+
+
 
 
 # Called when the node enters the scene tree for the first time.

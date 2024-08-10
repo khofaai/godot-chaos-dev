@@ -26,6 +26,7 @@ func enter() -> void:
 	attacking = true
 	
 	await get_tree().create_timer(0.075).timeout
+	audio.stop()
 	if attacking:
 		hurt_box.monitoring = true
 	pass

@@ -42,3 +42,8 @@ func set_as_parent(_parent : Node2D) -> void:
 func unparent_player(_parent : Node2D) -> void:
 	_parent.remove_child(player)
 
+
+func play_audio(_audio: AudioStream) -> void:
+	player.audio.stream = _audio
+	player.audio.play()
+	pass
